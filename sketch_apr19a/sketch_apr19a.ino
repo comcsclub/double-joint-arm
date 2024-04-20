@@ -1,31 +1,32 @@
 
 #include <stdlib.h>
-
+#define DIR_PIN 2
+#define STEP_PIN 3
 class StepperS { // The class
   public: // Access specifier
     int currSteps; // Attribute (int variable)
     StepperS() {
       currSteps = 0;
-      pinMode(2, OUTPUT);
-      pinMode(3, OUTPUT);
+      pinMode(DIR_PIN, OUTPUT);
+      pinMode(STEP_PIN, OUTPUT);
     }
     void moveSteps(int steps) {
       int _step = 1;
       int absSteps = abs(steps);
       if (steps > 0) {
-        digitalWrite(2, HIGH);
+        digitalWrite(DIR_PIN, HIGH);
       } else {
         _step  = -1;
-        digitalWrite(2, LOW);
+        digitalWrite(DIR_PIN, LOW);
       }
 
-      for (int I = 0; I < absSteps; I++) {
+     for (int i = 0; i < absSteps; i++) {
 
         this->currSteps += _step;
-        digitalWrite(3, HIGH);
-        delayMicroseconds(300);
-        digitalWrite(3, LOW);
-        delayMicroseconds(300);
+        digitalWrite(STEP_PIN, HIGH);
+        delayMicroseconds(199);
+        digitalWrite(STEP_PIN, LOW);
+        delayMicroseconds(199);
       }
     };
 };
